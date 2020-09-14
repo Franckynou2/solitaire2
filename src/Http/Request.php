@@ -4,12 +4,31 @@
  * @author Franckynou - Sept 2020
  * @version 1.0.0
  * Récupère les informations d'une requête HTTP
- */
+ */ 
 require_once(__DIR__ . './../../Controllers/NotFound.php');
 require_once(__DIR__ . './../../Controllers/Player.php');
 require_once(__DIR__ . './../../Controllers/Players.php');
 
 class Request {
+    /**
+     * @var array $routes 
+     * Contient les "routes" de l'application
+      */
+      private $routes = [
+          [
+            'path' => '/players',
+            'httpmethod' => 'GET',
+            'controller' => 'Players',
+            'method' => 'bestof'
+          ],
+          [
+            'path' => '/players',
+            'httpmethod' => 'POST',
+            'controller' => 'Players',
+            'method' => 'addPlayer'
+          ]
+      ];
+    
     /**
      * @var string $requestType
      * Type de la requête HTTP : GET | POST | PUT | DELETE | PATCH
@@ -73,15 +92,14 @@ class Request {
         $this->requestParams = $_GET;
         
         $this->requestURI = $_SERVER['REQUEST_URI'];
+        $this->_traiterURI();
         
         $this->fallback = $fallback;
-        
-        $this->controller=$this->_traiterURI();
         
     //    $this->_setControllerName(); // Définit le nom du fichier qui contient le contrôleur
     }
 
-    public function getRequestType(): string {
+    public function getRequestMethod(): string {
         return $this->requestType;
     }
 

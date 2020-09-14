@@ -38,4 +38,4 @@ require_once (__DIR__ . '/src/Core/Response/Response.php');
 
 // Récupérer une "Réponse"
 $response = $request->process();
-echo ($response instanceof Response) ?
+echo ($response instanceof Response) ? 'Response OK' : 'Response KO' ;

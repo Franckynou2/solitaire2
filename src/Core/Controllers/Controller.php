@@ -87,5 +87,16 @@
     public function getScripts(){
         return $this->scripts;
     }
+     
+    public function invoke(array $args=[]){
+        $method = array_key_exists('method', $_GET) ? $_GET['method'] : 'bestof';
+        return call_user_func_array(
+            [
+                $this,
+                $method
+            ], // le nom de la méthode ($method) de l'objet cournat ($this)
+            $args // les paramètres éventuels à transmettre
+        );
+    }
 
  }
